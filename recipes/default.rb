@@ -14,18 +14,17 @@ python_pip "virtualenvwrapper" do
   version node['python']['virtualenvwrapper_version']
 end
 
-# Add the configuration script to .bashrc on all users.
-node['etc']['passwd'].each do |user, data|
+ruby_block "insert_config" do
+  block do
+    Dir.foreach('/home') do |item|
+      next if item == '.' or item == '..'
 
-  ruby_block "insert_config" do
-    block do
-      file = Chef::Util::FileEdit.new("#{data['dir']}/.bashrc")
+      file = Chef::Util::FileEdit.new("/home/#{item}/.bashrc")
       file.insert_line_if_no_match(/# virtualenvwrapper init/, "# virtualenvwrapper init")
-      file.insert_line_if_no_match(/export WORKON_HOME=#{data['dir']}\/.virtualenvs/, "export WORKON_HOME=#{data['dir']}/.virtualenvs")
-      file.insert_line_if_no_match(/export PROJECT_HOME=#{data['dir']}\/Devel/, "export PROJECT_HOME=#{data['dir']}/Devel")
+      file.insert_line_if_no_match(/export WORKON_HOME=\/home\/#{item}\/.virtualenvs/, "export WORKON_HOME=/home/#{item}/.virtualenvs")
+      file.insert_line_if_no_match(/export PROJECT_HOME=\/home\/#{item}\/Devel/, "export PROJECT_HOME=/home/#{item}/Devel")
       file.insert_line_if_no_match(/source \/usr\/bin\/virtualenvwrapper.sh/, "source /usr/bin/virtualenvwrapper.sh")
       file.write_file
     end
-    only_if { data['dir'].include? '/home/' }
   end
 end
