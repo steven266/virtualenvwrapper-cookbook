@@ -1,4 +1,4 @@
-# virtualenv-cookbook
+# virtualenvwrapper-cookbook
 
 Cookbook for provisioning a python virtualenv environment with a virtualenvwrapper
 
