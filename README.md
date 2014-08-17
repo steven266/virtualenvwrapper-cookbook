@@ -6,10 +6,6 @@ Cookbook for provisioning a python virtualenv environment with a virtualenvwrapp
 
 * Centos 6.5
 
-## Attributes
-
-* [default](attributes/default.rb)
-
 ## Recipes
 
 ### Default
