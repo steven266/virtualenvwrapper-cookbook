@@ -23,7 +23,7 @@ ruby_block "insert_config" do
       file.insert_line_if_no_match(/# virtualenvwrapper init/, "# virtualenvwrapper init")
       file.insert_line_if_no_match(/export WORKON_HOME=\/home\/#{item}\/.virtualenvs/, "export WORKON_HOME=/home/#{item}/.virtualenvs")
       file.insert_line_if_no_match(/export PROJECT_HOME=\/home\/#{item}\/Devel/, "export PROJECT_HOME=/home/#{item}/Devel")
-      file.insert_line_if_no_match(/source \/usr\/bin\/virtualenvwrapper.sh/, "source /usr/bin/virtualenvwrapper.sh")
+      file.insert_line_if_no_match(/source \/usr\/local\/bin\/virtualenvwrapper.sh/, "source /usr/local/bin/virtualenvwrapper.sh")
       file.write_file
     end
   end
